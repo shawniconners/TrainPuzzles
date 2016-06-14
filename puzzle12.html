@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Train Puzzles</title>
+		<script>
+			var strPuzzleImageSrc = "img/ship_btns/ship12.jpg";
+			var intZIndex = 100;
+			
+			function funShowItem(inc_element_id){
+				document.getElementById(inc_element_id).style.visibility = "visible";
+				document.getElementById(inc_element_id).style.display = "block";
+			}
+			
+			function funHideItem(inc_element_id){
+				document.getElementById(inc_element_id).style.visibility = "hidden";
+				document.getElementById(inc_element_id).style.display = "none";
+			}
+			
+			function funWidthOffset(inc_element_id){
+                return document.getElementById(inc_element_id).offsetWidth / 2;
+            }
+            
+            function funHeightOffset(inc_element_id){
+                return document.getElementById(inc_element_id).offsetHeight / 2;
+            }
+			
+			function funGetHalfWidth(inc_element_id){
+				return document.getElementById(inc_element_id).offsetWidth / 2;
+			}
+			
+			function funGetHalfHeight(inc_element_id){
+				return document.getElementById(inc_element_id).offsetHeight / 2;
+			}
+			
+			function funSuccess(){
+				//
+			}
+			
+			function funError(){
+				//
+			}
+			
+			function preventBehavior(e)
+			{
+				e.preventDefault();
+			};
+			
+			function funBack(){
+				window.location.href = "puzzle_select.html";
+			}
+			
+			function funPieceDrag(e){
+				intZIndex = intZIndex + 1;
+				document.getElementById(e.target.id).style.zIndex = intZIndex;
+				newX = e.layerX + document.getElementById(e.target.id).offsetLeft - funWidthOffset(e.target.id) + "px";
+				newY = e.layerY + document.getElementById(e.target.id).offsetTop - funHeightOffset(e.target.id) + "px";
+				document.getElementById(e.target.id).style.left = newX;
+				document.getElementById(e.target.id).style.top = newY;
+			}
+			
+			function funGetPieceNumber(inc_id){
+				return parseInt(inc_id.replace(strPieceCanvasIdPrefix, ""));
+			}
+			
+			
+			
+			function funPieceDrop(e){
+				intPieceNumber = funGetPieceNumber(e.target.id);
+				intDropContainerX = document.getElementById("div_piece_holder").offsetLeft;
+				intDropContainerY = document.getElementById("div_piece_holder").offsetTop;
+				intDropPieceX = intDropContainerX + (arrPieceImgAnchor[intPieceNumber].x*-1) + 5;
+				intDropPieceY = intDropContainerY + (arrPieceImgAnchor[intPieceNumber].y*-1) + 5;
+				
+				intDropPieceXMax = intDropPieceX + document.getElementById(e.target.id).offsetWidth;
+				intDropPieceYMax = intDropPieceY + document.getElementById(e.target.id).offsetHeight;
+				
+				intCorrect = 0;
+				intWidthMiddle = funGetHalfWidth(e.target.id);
+				intHeightMiddle = funGetHalfHeight(e.target.id);
+				
+				intDropCenterX = (e.layerX*-1) + intWidthMiddle;
+				intDropCenterY = (e.layerY*-1) + intHeightMiddle;
+				
+				if((intDropCenterX > intDropPieceX) && (intDropCenterX < intDropPieceXMax)){
+					if((intDropCenterY > intDropPieceY) && (intDropCenterY < intDropPieceYMax)){
+						intCorrect = 1;
+					}
+				}
+				
+				if(intCorrect == 1){
+					mp3Start = new Media("sounds/pop.m4a", funSuccess, funError);
+					mp3Start.play();
+					
+					document.getElementById(e.target.id).style.left = intDropPieceX + "px";
+					document.getElementById(e.target.id).style.top = intDropPieceY + "px";
+					document.getElementById(e.target.id).removeEventListener('touchmove', funPieceDrag, false);
+					document.getElementById(e.target.id).removeEventListener('touchend', funPieceDrop, false);
+					intGameWin++;
+					if(intGameWin == 9){
+						funShowItem("img_large_image");
+						funShowItem("div_piece_red");
+						funShowItem("div_piece_green");
+						funShowItem("div_piece_blue");
+						funShowItem("div_piece_yellow");
+						funShowItem("div_piece_purple");
+						funShowItem("div_piece_orange");
+						mp3Start = new Media("sounds/win.mp3", funSuccess, funError);
+						mp3Start.play();
+					}
+				}else{
+					document.getElementById(e.target.id).style.left = arrPiecePositions[intPieceNumber].x + "px";
+					document.getElementById(e.target.id).style.top = arrPiecePositions[intPieceNumber].y + "px";
+				}
+			}
+			
+			var intPuzzleWidth = 400;
+			var intPuzzleHeight = 300;
+			var intGameWin = 0;
+			
+			var strPieceCanvasIdPrefix = "canvas_piece_";
+			
+			
+			var arrPiecePositions = [
+									 {x:462,y:605},
+									 {x:813,y:568},
+									 {x:540,y:138},
+									 {x:42,y:567},
+									 {x:807,y:341},
+									 {x:42,y:135},
+									 {x:815,y:140},
+									 {x:45,y:343},
+									 {x:285,y:140}
+									 ];
+			
+			var arrPieceDimensions = [
+									  {x:150,y:100},
+									  {x:150,y:125},
+									  {x:150,y:125},
+									  {x:150,y:125},
+									  {x:150,y:100},
+									  {x:150,y:125},
+									  {x:150,y:125},
+									  {x:150,y:125},
+									  {x:150,y:100}
+									  ];
+			
+			var arrPieceStartEnd = [
+									{x:0,y:0},
+									{x:25,y:0},
+									{x:25,y:0},
+									{x:0,y:25},
+									{x:0,y:0},
+									{x:0,y:25},
+									{x:0,y:25},
+									{x:0,y:25},
+									{x:0,y:0}
+									];
+			
+			var arrPieceImgAnchor = [
+									 {x:0,y:0},
+									 {x:-125,y:0},
+									 {x:-250,y:0},
+									 {x:0,y:-75},
+									 {x:-125,y:-100},
+									 {x:-250,y:-100},
+									 {x:0,y:-175},
+									 {x:-125,y:-175},
+									 {x:-250,y:-200}
+									 ];
+			
+			var arrPiecePoints = [
+								  //0
+								  [
+								   {x:150,y:0},
+								   {x:150,y:25},
+								   {x:125,y:25},
+								   {x:125,y:75},
+								   {x:150,y:75},
+								   {x:150,y:100},
+								   {x:100,y:100},
+								   {x:100,y:75},
+								   {x:50,y:75},
+								   {x:50,y:100},
+								   {x:0,y:100}
+								   ],
+								  //1
+								  [
+								   {x:150,y:0},
+								   {x:150,y:25},
+								   {x:125,y:25},
+								   {x:125,y:75},
+								   {x:150,y:75},
+								   {x:150,y:100},
+								   {x:100,y:100},
+								   {x:100,y:125},
+								   {x:50,y:125},
+								   {x:50,y:100},
+								   {x:25,y:100},
+								   {x:25,y:75},
+								   {x:0,y:75},
+								   {x:0,y:25},
+								   {x:25,y:25}
+								   ],
+								  //2
+								  [
+								   {x:150,y:0},
+								   {x:150,y:100},
+								   {x:100,y:100},
+								   {x:100,y:125},
+								   {x:50,y:125},
+								   {x:50,y:100},
+								   {x:25,y:100},
+								   {x:25,y:75},
+								   {x:0,y:75},
+								   {x:0,y:25},
+								   {x:25,y:25}
+								   ],
+								  //3
+								  [
+								   {x:50,y:25},
+								   {x:50,y:0},
+								   {x:100,y:0},
+								   {x:100,y:25},
+								   {x:125,y:25},
+								   {x:125,y:50},
+								   {x:150,y:50},
+								   {x:150,y:100},
+								   {x:125,y:100},
+								   {x:125,y:125},
+								   {x:100,y:125},
+								   {x:100,y:100},
+								   {x:50,y:100},
+								   {x:50,y:125},
+								   {x:0,y:125}
+								   ],
+								  //4
+								  [
+								   {x:50,y:0},
+								   {x:50,y:25},
+								   {x:100,y:25},
+								   {x:100,y:0},
+								   {x:150,y:0},
+								   {x:150,y:25},
+								   {x:125,y:25},
+								   {x:125,y:75},
+								   {x:150,y:75},
+								   {x:150,y:100},
+								   {x:100,y:100},
+								   {x:100,y:75},
+								   {x:50,y:75},
+								   {x:50,y:100},
+								   {x:0,y:100},
+								   {x:0,y:75},
+								   {x:25,y:75},
+								   {x:25,y:25},
+								   {x:0,y:25}
+								   ],
+								  //5
+								  [
+								   {x:25,y:25},
+								   {x:25,y:0},
+								   {x:50,y:0},
+								   {x:50,y:25},
+								   {x:100,y:25},
+								   {x:100,y:0},
+								   {x:150,y:0},
+								   {x:150,y:100},
+								   {x:100,y:100},
+								   {x:100,y:125},
+								   {x:50,y:125},
+								   {x:50,y:100},
+								   {x:25,y:100},
+								   {x:25,y:75},
+								   {x:0,y:75}
+								   ],
+								  //6
+								  [
+								   {x:50,y:25},
+								   {x:50,y:0},
+								   {x:100,y:0},
+								   {x:100,y:25},
+								   {x:125,y:25},
+								   {x:125,y:50},
+								   {x:150,y:50},
+								   {x:150,y:100},
+								   {x:125,y:100},
+								   {x:125,y:125},
+								   {x:0,y:125}
+								   ],
+								  //7
+								  [
+								   {x:50,y:25},
+								   {x:50,y:0},
+								   {x:100,y:0},
+								   {x:100,y:25},
+								   {x:125,y:25},
+								   {x:125,y:50},
+								   {x:150,y:50},
+								   {x:150,y:100},
+								   {x:125,y:100},
+								   {x:125,y:125},
+								   {x:0,y:125},
+								   {x:0,y:100},
+								   {x:25,y:100},
+								   {x:25,y:50},
+								   {x:0,y:50}
+								   ],
+								  //8
+								  [
+								   {x:50,y:0},
+								   {x:50,y:25},
+								   {x:100,y:25},
+								   {x:100,y:0},
+								   {x:150,y:0},
+								   {x:150,y:100},
+								   {x:0,y:100},
+								   {x:0,y:75},
+								   {x:25,y:75},
+								   {x:25,y:25},
+								   {x:0,y:25}
+								   ]
+								  ];
+			
+			
+			function funCreatePieces(){
+				for(var intPieces=0; intPieces<arrPieceDimensions.length; intPieces++){
+					var newPieceCanvas = document.createElement('canvas');
+					newPieceCanvas.setAttribute("id",strPieceCanvasIdPrefix + intPieces);
+					newPieceCanvas.setAttribute("width", arrPieceDimensions[intPieces].x);
+					newPieceCanvas.setAttribute("height", arrPieceDimensions[intPieces].y);
+					document.getElementById("div_container").appendChild(newPieceCanvas);
+				}
+			}
+			
+			
+			
+			function funTrimPieces(){
+				var thumbImg = document.createElement('img');
+				thumbImg.src = strPuzzleImageSrc;
+				thumbImg.onload = function() {
+					for(var intPieces=0; intPieces<arrPiecePoints.length; intPieces++){
+						var canvas =  document.getElementById(strPieceCanvasIdPrefix + intPieces);
+      					var ctx = canvas.getContext('2d');
+      					ctx.beginPath();
+      					ctx.moveTo(arrPieceStartEnd[intPieces].x,arrPieceStartEnd[intPieces].y);
+      					for(var i=0; i<arrPiecePoints[intPieces].length; i++){
+      						ctx.lineTo(arrPiecePoints[intPieces][i].x,arrPiecePoints[intPieces][i].y);
+      					}
+      					ctx.lineTo(arrPieceStartEnd[intPieces].x,arrPieceStartEnd[intPieces].y);
+      					ctx.closePath();
+						ctx.clip();
+						ctx.drawImage(thumbImg, arrPieceImgAnchor[intPieces].x, arrPieceImgAnchor[intPieces].y, intPuzzleWidth, intPuzzleHeight);
+					}
+				}
+			}
+			
+			function funPositionPieces(){
+				for(var intPieces=0; intPieces<arrPieceDimensions.length; intPieces++){
+					document.getElementById(strPieceCanvasIdPrefix + intPieces).style.left = arrPiecePositions[intPieces].x + "px";
+					document.getElementById(strPieceCanvasIdPrefix + intPieces).style.top = arrPiecePositions[intPieces].y + "px";
+				}
+			}
+			
+			function funActivatePieces(){
+				for(var intPieces=0; intPieces<arrPieceDimensions.length; intPieces++){
+					document.getElementById(strPieceCanvasIdPrefix + intPieces).addEventListener('touchmove', funPieceDrag, false);
+					document.getElementById(strPieceCanvasIdPrefix + intPieces).addEventListener('touchend', funPieceDrop, false);
+				}
+			}
+			function funStart(){
+				document.getElementById("img_large_image").src = strPuzzleImageSrc;
+				document.getElementById("div_back_button").addEventListener('touchend', function(){funBack();}, false);
+				funCreatePieces();
+				funTrimPieces();
+				funPositionPieces();
+				funActivatePieces();
+			}
+			
+			
+			
+		</script>
+		<style>
+			body, div, img, canvas{
+				margin: 0px;
+				padding: 0px;
+				
+			}
+			#div_container{
+				background: url('img/background_puzzle.jpg');
+				background-size: 100%;
+				width: 1024px;
+				height: 748px;
+			}
+			#div_container canvas{
+				position:absolute;
+			}
+			#div_back_button{
+				background: url('img/back.png');
+				background-size: 100%;
+				width: 83px;
+				height: 86px;
+				position: absolute;
+				top: 7px;
+				left: 7px;
+			}
+			#div_good_luck_text{
+				background: url('img/good_luck_text.png');
+				background-size: 100%;
+				width: 304px;
+				height: 59px;
+				position: absolute;
+				top: 20px;
+				left: 353px;
+			}
+			#div_piece_holder{
+				background: #555;
+				width: 400px;
+				height: 300px;
+				position: absolute;
+				top: 284px;
+				left: 312px;
+				border: 5px solid #444;
+			}
+			
+			#div_piece_red{
+				z-index: 20000;
+				visibility: hidden;
+				display: none;
+				background: url('img/piece_red.png');
+				background-size: 100%;
+				width: 129px;
+				height: 218px;
+				position: absolute;
+				top: -129px;
+				left: 100px;
+				-webkit-animation-name: anmPieceRed;
+				-webkit-animation-duration: 5s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPieceRed
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-30deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-90deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-200deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }
+            }
+			#div_piece_green{
+				z-index: 20000;
+				visibility: hidden;
+				display: none;
+				background: url('img/piece_green.png');
+				background-size: 100%;
+				width: 206px;
+				height: 135px;
+				position: absolute;
+				top: -135px;
+				left: 200px;
+				-webkit-animation-name: anmPieceGreen;
+				-webkit-animation-duration: 7s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPieceGreen
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-30deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-90deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-200deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }
+                
+            }
+			
+			#div_piece_blue{
+				z-index: 20000;
+				visibility: hidden;
+				display: none;
+				background: url('img/piece_blue.png');
+				background-size: 100%;
+				width: 128px;
+				height: 218px;
+				position: absolute;
+				top: -218px;
+				left: 280px;
+				-webkit-animation-name: anmPieceBlue;
+				-webkit-animation-duration: 3s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPieceBlue
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-30deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-90deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-200deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }
+                
+            }
+			#div_piece_yellow{
+				z-index: 20000;
+				visibility: hidden;
+				display: none;
+				background: url('img/piece_yellow.png');
+				background-size: 100%;
+				width: 163px;
+				height: 215px;
+				position: absolute;
+				top: -215px;
+				left: 600px;
+				-webkit-animation-name: anmPieceYellow;
+				-webkit-animation-duration: 8s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPieceYellow
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-20deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-80deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-150deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }
+                
+            }
+			#div_piece_purple{
+				z-index: 20000;
+				visibility: hidden;
+				display: none;
+				background: url('img/piece_purple.png');
+				background-size: 100%;
+				width: 179px;
+				height: 140px;
+				position: absolute;
+				top: -179px;
+				left: 750px;
+				-webkit-animation-name: anmPiecePurple;
+				-webkit-animation-duration: 4s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPiecePurple
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-60deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-130deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-210deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }
+                
+            }
+			
+			#div_piece_orange{
+				z-index: 20000;
+				visibility: hidden;
+				display: none;
+				background: url('img/piece_orange.png');
+				background-size: 100%;
+				width: 179px;
+				height: 140px;
+				position: absolute;
+				top: -179px;
+				left: 800px;
+				-webkit-animation-name: anmPieceOrange;
+				-webkit-animation-duration: 6s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPieceOrange
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-100deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-180deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-270deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }
+                
+            }
+			
+			#img_large_image{
+				visibility: hidden;
+				display: none;
+				width: 820px;
+				height: 620px;
+				position: absolute;
+				top: 104px;
+				left: 102px;
+				border: 10px solid #444;
+				z-index: 10000;
+			}
+			
+		</style>
+    </head>
+    <body>
+		<div id="div_container">
+			<div id="div_back_button"></div>
+			<div id="div_good_luck_text"></div>
+			<div id="div_piece_holder"></div>
+		</div>
+		<div id="div_piece_red"></div>
+		<div id="div_piece_green"></div>
+		<div id="div_piece_blue"></div>
+		<div id="div_piece_yellow"></div>
+		<div id="div_piece_purple"></div>
+		<div id="div_piece_orange"></div>
+		<img id="img_large_image" src=""/>
+		<div id="div_preload"></div>
+        <script type="text/javascript" src="cordova-2.2.0rc1.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+			</script>
+    </body>
+</html>

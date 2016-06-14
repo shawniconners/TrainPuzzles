@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Ship Puzzles</title>
+		<script>
+			
+			function funSuccess(){
+				//
+			}
+			
+			function funError(){
+				//
+			}
+			
+			function preventBehavior(e)
+			{
+				e.preventDefault();
+			};
+			function funPuzzleSelect(){
+				window.location.href = "puzzle_select.html";
+			}
+			
+			function funStart(){
+				document.getElementById("div_start_button").addEventListener('touchend', function(){funPuzzleSelect();}, false);
+			}
+		</script>
+		<style>
+			body, div, img{
+				margin: 0px;
+				padding: 0px;
+				
+			}
+			#div_container{
+				background: url('img/background_index.jpg');
+				background-size: 100%;
+				width: 1024px;
+				height: 748px;
+			}
+			
+			#div_start_button{
+				background: url('img/start.png');
+				background-size: 100%;
+				width: 150px;
+				height: 150px;
+				position: absolute;
+				top: 301px;
+				left: 437px;
+				-webkit-animation-name: anmStart;
+				-webkit-animation-duration: 2s;
+				-webkit-animation-timing-function: ease-in-out;
+				-webkit-animation-iteration-count: infinite;
+			}
+			@-webkit-keyframes anmStart
+            {
+                0% {
+					-webkit-transform: scale(1.0);
+                }
+				50% {
+                    -webkit-transform: scale(1.1);
+                }
+                100% {
+                    -webkit-transform: scale(1.0);
+                }
+            }
+			#div_piece_red{
+				background: url('img/piece_red.png');
+				background-size: 100%;
+				width: 129px;
+				height: 218px;
+				position: absolute;
+				top: -129px;
+				left: 100px;
+				-webkit-animation-name: anmPieceRed;
+				-webkit-animation-duration: 5s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPieceRed
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-30deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-90deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-200deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }   
+            }
+			#div_piece_green{
+				background: url('img/piece_green.png');
+				background-size: 100%;
+				width: 206px;
+				height: 135px;
+				position: absolute;
+				top: -135px;
+				left: 200px;
+				-webkit-animation-name: anmPieceGreen;
+				-webkit-animation-duration: 7s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPieceGreen
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-30deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-90deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-200deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }
+                
+            }
+			
+			#div_piece_blue{
+				background: url('img/piece_blue.png');
+				background-size: 100%;
+				width: 128px;
+				height: 218px;
+				position: absolute;
+				top: -218px;
+				left: 280px;
+				-webkit-animation-name: anmPieceBlue;
+				-webkit-animation-duration: 3s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPieceBlue
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-30deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-90deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-200deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }
+                
+            }
+			#div_piece_yellow{
+				background: url('img/piece_yellow.png');
+				background-size: 100%;
+				width: 163px;
+				height: 215px;
+				position: absolute;
+				top: -215px;
+				left: 600px;
+				-webkit-animation-name: anmPieceYellow;
+				-webkit-animation-duration: 8s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPieceYellow
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-20deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-80deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-150deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }
+                
+            }
+			#div_piece_purple{
+				background: url('img/piece_purple.png');
+				background-size: 100%;
+				width: 179px;
+				height: 140px;
+				position: absolute;
+				top: -179px;
+				left: 750px;
+				-webkit-animation-name: anmPiecePurple;
+				-webkit-animation-duration: 4s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPiecePurple
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-60deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-130deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-210deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }
+                
+            }
+			
+			#div_piece_orange{
+				background: url('img/piece_orange.png');
+				background-size: 100%;
+				width: 179px;
+				height: 140px;
+				position: absolute;
+				top: -179px;
+				left: 800px;
+				-webkit-animation-name: anmPieceOrange;
+				-webkit-animation-duration: 6s;
+				-webkit-animation-timing-function: linear;
+				-webkit-animation-iteration-count: infinite;
+			}
+			
+			@-webkit-keyframes anmPieceOrange
+            {
+                0% {
+					-webkit-transform: translate(0px,0px) scale(1.0) rotate(0deg);
+                }
+                25% {
+                    -webkit-transform: translate(0px,250px) scale(1.1) rotate(-100deg);
+                }
+                50% {
+                    -webkit-transform: translate(0px,500px) scale(1.2) rotate(-180deg);
+                }
+                75% {
+                    -webkit-transform: translate(0px,750px) scale(1.1) rotate(-270deg);
+                }
+                100% {
+                    -webkit-transform: translate(0px,1000px) scale(1.0) rotate(-300deg);
+                }
+                
+            }
+						
+			</style>
+		
+    </head>
+    <body>
+		<div id="div_container">
+			<div id="div_start_button"></div>
+			<div id="div_piece_red"></div>
+			<div id="div_piece_green"></div>
+			<div id="div_piece_blue"></div>
+			<div id="div_piece_yellow"></div>
+			<div id="div_piece_purple"></div>
+			<div id="div_piece_orange"></div>
+		</div>
+		<div id="div_preload"></div>
+        <script type="text/javascript" src="cordova-2.2.0rc1.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+			</script>
+    </body>
+</html>

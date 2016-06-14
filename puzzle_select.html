@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ -->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Ship Puzzles</title>
+		<script>
+			
+			function funSuccess(){
+				//
+			}
+			
+			function funError(){
+				//
+			}
+			
+			function preventBehavior(e)
+			{
+				e.preventDefault();
+			};
+			
+			function funBack(){
+				window.location.href = "index.html";
+			}
+			
+			function funLaunchPuzzle(inc_number){
+				window.location.href = "puzzle" + inc_number + ".html";
+			}
+			
+			function funStart(){
+				document.getElementById("div_back_button").addEventListener('touchend', function(){funBack();}, false);
+				document.getElementById("div_option_ship1").addEventListener('touchend', function(){funLaunchPuzzle("1");}, false);
+				document.getElementById("div_option_ship2").addEventListener('touchend', function(){funLaunchPuzzle("2");}, false);
+				document.getElementById("div_option_ship3").addEventListener('touchend', function(){funLaunchPuzzle("3");}, false);
+				document.getElementById("div_option_ship4").addEventListener('touchend', function(){funLaunchPuzzle("4");}, false);
+				document.getElementById("div_option_ship5").addEventListener('touchend', function(){funLaunchPuzzle("5");}, false);
+				document.getElementById("div_option_ship6").addEventListener('touchend', function(){funLaunchPuzzle("6");}, false);
+				document.getElementById("div_option_ship7").addEventListener('touchend', function(){funLaunchPuzzle("7");}, false);
+				document.getElementById("div_option_ship8").addEventListener('touchend', function(){funLaunchPuzzle("8");}, false);
+				document.getElementById("div_option_ship9").addEventListener('touchend', function(){funLaunchPuzzle("9");}, false);
+				document.getElementById("div_option_ship10").addEventListener('touchend', function(){funLaunchPuzzle("10");}, false);
+				document.getElementById("div_option_ship11").addEventListener('touchend', function(){funLaunchPuzzle("11");}, false);
+				document.getElementById("div_option_ship12").addEventListener('touchend', function(){funLaunchPuzzle("12");}, false);
+			}
+		</script>
+		<style>
+			body, div, img{
+				margin: 0px;
+				padding: 0px;
+				
+			}
+			#div_container{
+				background: url('img/background_general.jpg');
+				background-size: 100%;
+				width: 1024px;
+				height: 748px;
+			}
+			#div_back_button{
+				background: url('img/back.png');
+				background-size: 100%;
+				width: 83px;
+				height: 86px;
+				position: absolute;
+				top: 7px;
+				left: 7px;
+			}
+			#div_select_text{
+				background: url('img/choose_puzzle_text.png');
+				background-size: 100%;
+				width: 434px;
+				height: 59px;
+				position: absolute;
+				top: 20px;
+				left: 290px;
+			}
+			#div_option_ship1{
+				background: url('img/ship_btns/ship1.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 150px;
+				left: 45px;
+				border: 2px solid #000;
+			}
+			#div_option_ship2{
+				background: url('img/ship_btns/ship2.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 150px;
+				left: 290px;
+				border: 2px solid #000;
+			}
+			#div_option_ship3{
+				background: url('img/ship_btns/ship3.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 150px;
+				left: 535px;
+				border: 2px solid #000;
+			}
+			#div_option_ship4{
+				background: url('img/ship_btns/ship4.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 150px;
+				left: 780px;
+				border: 2px solid #000;
+			}
+			#div_option_ship5{
+				background: url('img/ship_btns/ship5.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 349px;
+				left: 45px;
+				border: 2px solid #000;
+			}
+			#div_option_ship6{
+				background: url('img/ship_btns/ship6.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 349px;
+				left: 290px;
+				border: 2px solid #000;
+			}
+			#div_option_ship7{
+				background: url('img/ship_btns/ship7.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 349px;
+				left: 535px;
+				border: 2px solid #000;
+			}
+			#div_option_ship8{
+				background: url('img/ship_btns/ship8.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 349px;
+				left: 780px;
+				border: 2px solid #000;
+			}
+			#div_option_ship9{
+				background: url('img/ship_btns/ship9.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 548px;
+				left: 45px;
+				border: 2px solid #000;
+			}
+			#div_option_ship10{
+				background: url('img/ship_btns/ship10.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 548px;
+				left: 290px;
+				border: 2px solid #000;
+			}
+			#div_option_ship11{
+				background: url('img/ship_btns/ship11.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 548px;
+				left: 535px;
+				border: 2px solid #000;
+			}
+			#div_option_ship12{
+				background: url('img/ship_btns/ship12.jpg');
+				background-size: 100%;
+				width: 200px;
+				height: 150px;
+				position: absolute;
+				top: 548px;
+				left: 780px;
+				border: 2px solid #000;
+			}
+		</style>
+    </head>
+    <body>
+		<div id="div_container">
+			<div id="div_back_button"></div>
+			<div id="div_select_text"></div>
+			<div id="div_option_ship1"></div>
+			<div id="div_option_ship2"></div>
+			<div id="div_option_ship3"></div>
+			<div id="div_option_ship4"></div>
+			<div id="div_option_ship5"></div>
+			<div id="div_option_ship6"></div>
+			<div id="div_option_ship7"></div>
+			<div id="div_option_ship8"></div>
+			<div id="div_option_ship9"></div>
+			<div id="div_option_ship10"></div>
+			<div id="div_option_ship11"></div>
+			<div id="div_option_ship12"></div>
+		</div>
+		<div id="div_preload"></div>
+        <script type="text/javascript" src="cordova-2.2.0rc1.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+			</script>
+    </body>
+</html>
